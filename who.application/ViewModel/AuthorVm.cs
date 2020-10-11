@@ -7,7 +7,7 @@ namespace who.application.ViewModel
 {
     public class AuthorVm : Name
     {
-        public int Id { get; set; }
+        internal int Id { get; set; }
     }
 
 

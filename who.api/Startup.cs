@@ -54,7 +54,7 @@ namespace who.api
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             
             services.AddSwaggerGen(x => {
-                x.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "MLC API", Version = "v1.0" });
+                x.SwaggerDoc("v1.0", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "WHO API", Version = "v1.0" });
             });
 
             var key = Encoding.UTF8.GetBytes(Configuration["ApplicationSettings:JWT_Secret"].ToString());
