@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "jdt9w1OVE69c22z0J5q9kJhnQWKGEGhugbNGC74kPu2aMYQDXdRgOr77dZkjoshk/+UxtTxPzHF+221S/E4oTw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\MUDZRAINA\\Desktop\\Exam\\World Health Organization\\who.application\\who.application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

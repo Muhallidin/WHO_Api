@@ -1,0 +1,12 @@
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\bin\Debug\netstandard2.0\who.application.deps.json
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\bin\Debug\netstandard2.0\who.application.dll
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\bin\Debug\netstandard2.0\who.application.pdb
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\bin\Debug\netstandard2.0\who.domain.dll
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\bin\Debug\netstandard2.0\who.domain.pdb
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\obj\Debug\netstandard2.0\who.application.csprojAssemblyReference.cache
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\obj\Debug\netstandard2.0\who.application.AssemblyInfoInputs.cache
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\obj\Debug\netstandard2.0\who.application.AssemblyInfo.cs
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\obj\Debug\netstandard2.0\who.application.csproj.CoreCompileInputs.cache
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\obj\Debug\netstandard2.0\who.application.csproj.CopyComplete
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\obj\Debug\netstandard2.0\who.application.dll
+C:\Users\MUDZRAINA\Desktop\Exam\World Health Organization\who.application\obj\Debug\netstandard2.0\who.application.pdb
