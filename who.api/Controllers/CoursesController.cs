@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using who.application.Common;
 using who.application.ViewModel;
 using who.domain.Entities;
@@ -22,33 +18,54 @@ namespace who.api.Controllers
         {
             this.udal = new CourseDal(appSetting.Value, con.Value);
         }
-        
+
         [HttpGet("Course/{id}")]
-        
-        public async Task<IActionResult> course(int id)
+        public async Task<IActionResult> Course(int id)
         {
+
             try
             {
                 var result = await udal.GetCourse(id);
                 if (result != null)
                 {
-                    return Ok(result);
+                    return Ok(new { status = true, result });
                 }
                 else
                 {
-                    return NotFound(new { message = "No record found!" });
+                    return NotFound(new { status = false, message = "No record found!" });
                 }
             }
             catch (ExternalException e)
             {
-                return BadRequest(new { message = e.Message });
+                return BadRequest(new { status = false, message = e.Message });
             }
-            //var user = await _userManager.FindByNameAsync(model.UserName);
-          
 
         }
+
+        [HttpDelete("Course/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var result = await udal.Delete(id);
+                if (result != null)
+                {
+                    return Ok(new { status = false, message = result });
+                }
+                else
+                {
+                    return NotFound(new { status = false, message = "No record found!" });
+                }
+            }
+            catch (ExternalException e)
+            {
+                return BadRequest(new { status = false, message = e.Message });
+            }
+        }
+
+
         [HttpGet("[controller]")]
-        public async Task<object> courses()
+        public async Task<object> Courses()
         {
             try
             {
@@ -59,15 +76,17 @@ namespace who.api.Controllers
                 }
                 else
                 {
-                    return NotFound(new { message = "No record found!" });
+                    return NotFound(new { status = true, message = "No record found!" });
                 }
             }
-            catch (ExternalException e) {
-                return BadRequest(new { message = e.Message });
+            catch (ExternalException e)
+            {
+                return BadRequest(new { status = false, message = e.Message });
             }
         }
-        [HttpPost("[controller]")]
-        public async Task<IActionResult> Post([FromBody]CourseVm courses)
+
+        [HttpPost("Course")]
+        public async Task<IActionResult> Post([FromBody] Courses courses)
         {
             //var user = await _userManager.FindByNameAsync(model.UserName);
             var result = await udal.Create(courses);
@@ -75,13 +94,33 @@ namespace who.api.Controllers
             {
                 return Ok(new
                 {
+                    status =true,
                     Id = result,
-                    message = "Successfully create Course",
+                    message = "Successfully create the enrolled course",
                 });
             }
             else
             {
-                return BadRequest(new { message = "Invalid Input" });
+                return BadRequest(new { status = true, message = "Invalid Input" });
+            }
+        }
+
+        [HttpPut("Course/{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Courses courses)
+        {
+            var result = await udal.Update(id, courses);
+            if (result != null)
+            {
+                return Ok(new
+                {
+                    status = true,
+                    Id = result,
+                    message = "Successfully Update the enrolled course",
+                });
+            }
+            else
+            {
+                return BadRequest(new { status = true, message = "Invalid Input" });
             }
 
         }

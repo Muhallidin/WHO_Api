@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using who.application.Common;
 using who.application.ViewModel;
 using who.domain.Entities;
@@ -22,14 +19,14 @@ namespace who.api.Controllers
         {
             this.udal = new AuthorDal(appSetting.Value, con.Value);
         }
-        
+
         [HttpGet("Author/{id}")]
-        
         public async Task<IActionResult> Author(int id)
         {
 
             //var user = await _userManager.FindByNameAsync(model.UserName);
             var result = await udal.GetAuthor(id);
+
             if (result != null)
             {
                 return Ok(new
@@ -40,6 +37,54 @@ namespace who.api.Controllers
             else
             {
                 return BadRequest(new { message = "No record found!" });
+            }
+
+        }
+
+        [HttpDelete("Author/{Id}")]
+        public async Task<IActionResult> Delete(int Id)
+        {
+            try
+            {
+
+                var resulr = await udal.Delete(Id);
+                if (resulr > 0)
+                {
+                    return Ok(new
+                    {
+                        status = true,
+                        message = "Successfully Delete Author",
+                    });
+                }
+                else
+                {
+                    return BadRequest(new { message = "Invalid Input" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(
+                    new
+                    {
+                        status = false,
+                        message = ex.Message
+                    }); ;
+            }
+        }
+        [HttpPut("Author/{Id}")]
+        public async Task<IActionResult> Put(int Id, [FromBody] Author author)
+        {
+            var resulr = await udal.Update(Id, author);
+            if (resulr != null)
+            {
+                return Ok(new
+                {
+                    message = "Successfully create Author",
+                });
+            }
+            else
+            {
+                return BadRequest(new { message = "Invalid Input" });
             }
 
         }
@@ -58,20 +103,21 @@ namespace who.api.Controllers
                     return BadRequest(new { message = "No record found!" });
                 }
             }
-            catch (ExternalException e) {
+            catch (ExternalException e)
+            {
                 return BadRequest(new { message = e.Message });
             }
         }
 
         [HttpPost("[controller]")]
-        public async Task<IActionResult> Post([FromBody] AuthorVm author)
+        public async Task<IActionResult> Post([FromBody] Author author)
         {
             var resulr = await udal.Create(author);
             if (resulr != null)
             {
                 return Ok(new
                 {
-                    message = "Successfully create user",
+                    message = "Successfully create Author",
                 });
             }
             else
@@ -80,5 +126,10 @@ namespace who.api.Controllers
             }
 
         }
+       
+
+       
+
+
     }
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace who.application.Queries.Dapper
+﻿namespace who.application.Queries.Dapper
 {
     public static class User_query
-	{
+    {
 
         #region select_Login
         const string user = @"

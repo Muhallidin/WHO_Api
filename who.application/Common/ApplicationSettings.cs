@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace who.application.Common
+﻿namespace who.application.Common
 {
     public interface IApplicationSettings
     {

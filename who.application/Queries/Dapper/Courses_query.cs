@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace who.application.Queries.Dapper
+﻿namespace who.application.Queries.Dapper
 {
-    public class courses_Query
+    public class Courses_Query
     {
         #region select All Course
         const string course = @"
                           SELECT [Id] ,[CourseCode] ,[Course]  , [CreatedBy] as UserID
                           FROM [WHO].[dbo].[Course] where IsActive = 1  
                         ";
-        public static string GetAllCourse{ get { return course; } }
+        public static string GetAllCourse { get { return course; } }
 
         #endregion select All Course
 
@@ -35,7 +31,7 @@ namespace who.application.Queries.Dapper
                                (@pCourseCode 
                                ,@pCourse 
                                ,@pUserId)  
-                        Select @@Identity
+                        Select @@Identity as RowAffected
                         ";
         public static string Create { get { return Createcourse; } }
 
@@ -50,10 +46,25 @@ namespace who.application.Queries.Dapper
                                       ,[ModifiedDate] = Getdate()
                                       ,[ModifiedBy] = @pUserId
                                  WHERE ID = @pId
+                                Select @@Identity as RowAffected
                                 ";
-        public static string Update { get { return Createcourse; } }
+        public static string Update { get { return Updatecourse; } }
 
         #endregion select All Course
+
+
+        #region Delete Course  
+        const string Deletecourse = @"
+                                    Delete from [dbo].[Course]  WHERE ID = @pId
+                                    select @@ROWCOUNT as [RowCount]
+                                ";
+        public static string Delete { get { return Deletecourse; } }
+
+        #endregion select All Course
+
+
+
+
 
     }
 }

@@ -1,21 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using who.domain.Common;
 
 namespace who.domain.Entities
 {
-    public class CourseEnroll : AuthorCourse
+    public class CourseEnroll : User
     {
-        public CourseEnroll()
-        {
-            this.Students = new List<Student>();
-        }
 
-        public int ECId { get; set; }
-        public IList<Student> Students { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
-
+        public int Student_Id { get; set; }
+        public int Course_Id { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 
 }

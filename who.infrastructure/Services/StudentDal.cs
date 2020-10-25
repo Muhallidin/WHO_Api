@@ -1,13 +1,14 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using who.application.Common;
 using who.application.Queries.Dapper;
-using who.domain.Entities;
-using Dapper;
-using System.Linq;
 using who.application.ViewModel;
+using Dapper;
+using who.domain.Entities;
 
 namespace who.infrastructure.Services
 {
@@ -60,7 +61,7 @@ namespace who.infrastructure.Services
             }
         }
 
-        public async Task<string> Create(StudentVm course)
+        public async Task<string> Create(Student course)
         {
             try
             {
@@ -87,7 +88,7 @@ namespace who.infrastructure.Services
         }
 
 
-        public async Task<string> Update(int Id,StudentVm course)
+        public async Task<string> Update(int Id, Student course)
         {
             try
             {
@@ -112,6 +113,28 @@ namespace who.infrastructure.Services
             {
                 throw ex;
             }
+        }
+
+
+        public async Task<int> Delete(int Id)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(con.DatabaseConnection))
+                {
+                    conn.Open();
+                    return await conn.ExecuteScalarAsync<int>(Student_query.Delete, new
+                    {
+                        pId = Id
+                    }, commandTimeout: 30);
+
+                };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

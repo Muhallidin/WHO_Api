@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 
 namespace who.application.Common
@@ -12,7 +10,7 @@ namespace who.application.Common
     }
     public class ConnectionString : IConnectionString
     {
-       
+
         public ConnectionString(IApplicationSettings appSetting, IConnectionSetting con)
         {
             try
@@ -31,17 +29,17 @@ namespace who.application.Common
                     cridential = "User " + cridential;
 
                     this.DatabaseConnection = con.DefaultConnection; // cridential + con.DefaultConnection;
-                    
+
                 }
             }
-            catch  
+            catch
             {
-                this.DatabaseConnection  = con.DefaultConnection;
+                this.DatabaseConnection = con.DefaultConnection;
                 //string error = ex.Message.ToString();
             }
         }
 
         public string DatabaseConnection { get; }
-      
+
     }
 }

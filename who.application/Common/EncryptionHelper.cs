@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Text;
-using System.Security.Cryptography;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace who.application.Common
 {
-    public   class EncryptionHelper
+    public class EncryptionHelper
     {
         public static string Encrypt(string clearText)
         {

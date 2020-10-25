@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using who.domain.Common;
+﻿using who.domain.Common;
+using who.domain.Entities;
 
 namespace who.application.ViewModel
 {
-    public class AuthorVm : Name
+    public class AuthorVm : Author
     {
-        internal int Id { get; set; }
+        public int Id { get; set; }
     }
 
 

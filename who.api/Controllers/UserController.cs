@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 using who.application.Common;
 using who.domain.Common;
 using who.infrastructure.Services;
@@ -16,22 +12,19 @@ namespace who.api.Controllers
     public class UserController : ControllerBase
     {
 
-        private readonly IApplicationSettings _appSetting;
         //private readonly IConfiguration config;
         private readonly UserDal udal;
         //private readonly UserManager<TokenUser> _userManager;
 
         public UserController(IOptions<ApplicationSettings> appSetting, IOptions<ConnectionSetting> con)
         {
-            //_userManager = userManager;
-            _appSetting = appSetting.Value;
-            //this.config = configuration;
+
             this.udal = new UserDal(appSetting.Value, con.Value);
 
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromBody]LogIn model)
+        public async Task<IActionResult> Get([FromBody] LogIn model)
         {
 
             //var user = await _userManager.FindByNameAsync(model.UserName);
@@ -41,7 +34,7 @@ namespace who.api.Controllers
                 return Ok(new
                 {
                     Token = User.UserID,
-                    
+
                 });
             }
             else

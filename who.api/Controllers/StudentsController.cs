@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System;
+using System.Threading.Tasks;
 using who.application.Common;
 using who.application.ViewModel;
+using who.domain.Entities;
 using who.infrastructure.Services;
 
 namespace who.api.Controllers
@@ -21,9 +19,9 @@ namespace who.api.Controllers
         {
             this.udal = new StudentDal(appSetting.Value, con.Value);
         }
-        
+
         [HttpGet("Student/{id}")]
-        
+
         public async Task<IActionResult> Student(int id)
         {
             try
@@ -42,17 +40,17 @@ namespace who.api.Controllers
                     return NotFound(new { message = "No record found!" });
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 if (e.Message.Contains("Sequence contains no elements"))
                 {
-                    return NotFound(new { message = "No record found!" });  
+                    return NotFound(new { message = "No record found!" });
                 }
 
                 return BadRequest(new { message = "No record found!" });
             }
             //var user = await _userManager.FindByNameAsync(model.UserName);Try
-            
+
 
         }
         [HttpGet("[controller]")]
@@ -82,14 +80,14 @@ namespace who.api.Controllers
         }
 
         [HttpPost("[controller]")]
-        public async Task<IActionResult> Post([FromBody] StudentVm author)
+        public async Task<IActionResult> Post([FromBody] Student author)
         {
             var resulr = await udal.Create(author);
             if (resulr != null)
             {
                 return Ok(new
                 {
-                    message = "Successfully create user",
+                    message = "Successfully create Student",
                 });
             }
             else
@@ -100,15 +98,33 @@ namespace who.api.Controllers
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] StudentVm student)
+        [HttpPut("Student/{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] Student student)
         {
-            var resulr = await udal.Create(student);
+            var resulr = await udal.Update(id, student);
             if (resulr != null)
             {
                 return Ok(new
                 {
-                    message = "Successfully create user",
+                    message = "Successfully create Student",
+                });
+            }
+            else
+            {
+                return BadRequest(new { message = "Invalid Input" });
+            }
+        }
+
+        // PUT api/values/5
+        [HttpDelete("Student/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var resulr = await udal.Delete(id);
+            if (resulr > 0)
+            {
+                return Ok(new
+                {
+                    message = "Successfully delete Student",
                 });
             }
             else

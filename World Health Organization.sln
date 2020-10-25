@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "who.domain", "who.domain\who.domain.csproj", "{B35512D2-941C-4414-952B-C1216D7BC85D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "who.domain", "who.domain\who.domain.csproj", "{B35512D2-941C-4414-952B-C1216D7BC85D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "who.api", "who.api\who.api.csproj", "{402D797E-604F-400D-B93B-735B7EE2FFAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "who.api", "who.api\who.api.csproj", "{402D797E-604F-400D-B93B-735B7EE2FFAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "who.application", "who.application\who.application.csproj", "{8E6B611B-95F1-4567-A910-A689F55AAB6E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "who.application", "who.application\who.application.csproj", "{8E6B611B-95F1-4567-A910-A689F55AAB6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "who.infrastructure", "who.infrastructure\who.infrastructure.csproj", "{F6E69B9E-94FB-4328-9B22-8DB8AC237B5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "who.infrastructure", "who.infrastructure\who.infrastructure.csproj", "{F6E69B9E-94FB-4328-9B22-8DB8AC237B5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

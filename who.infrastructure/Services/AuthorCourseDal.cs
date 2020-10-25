@@ -1,8 +1,6 @@
 ﻿using Dapper;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Text;
 using System.Threading.Tasks;
 using who.application.Common;
 using who.application.Queries.Dapper;
@@ -29,9 +27,9 @@ namespace who.infrastructure.Services
                         conn.Open();
                         return conn.ExecuteScalar<int>(AuthorCourse_query.Create, new
                         {
-                            
+
                             pCourse_ID = authorCourse.Courses.Id,
-                            pAuthort_ID =    authorCourse.Author.Id,
+                            pAuthort_ID = authorCourse.Author.Id,
                             pUserId = authorCourse.UserID
 
                         }, commandTimeout: 0).ToString();

@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using who.application.Common;
 using who.application.Queries.Dapper;
 using who.application.ViewModel;
+using who.domain.Entities;
+
 namespace who.infrastructure.Services
 {
-    public class CourseDal  
+    public class CourseDal
     {
         private readonly IConnectionString con;
         public CourseDal(IApplicationSettings appSetting, IConnectionSetting con)
@@ -17,17 +19,15 @@ namespace who.infrastructure.Services
             this.con = new ConnectionString(appSetting, con);
         }
 
-        public async Task<IList<CourseVm>> GetAllCourse()
+        public async Task<IList<CoursesVm>> GetAllCourse()
         {
             try
             {
                 return await Task.Run(() =>
                 {
-                    using (SqlConnection conn = new SqlConnection(con.DatabaseConnection))
-                    {
-                        conn.Open();
-                        return conn.Query<CourseVm>(courses_Query.GetAllCourse).ToList();
-                    }
+                    using SqlConnection conn = new SqlConnection(con.DatabaseConnection);
+                    conn.Open();
+                    return conn.Query<CoursesVm>(Courses_Query.GetAllCourse).ToList();
                 });
             }
             catch (Exception e)
@@ -36,17 +36,15 @@ namespace who.infrastructure.Services
             }
         }
 
-        public async Task<CourseVm> GetCourse(int id)
+        public async Task<CoursesVm> GetCourse(int id)
         {
             try
             {
                 return await Task.Run(() =>
                 {
-                    using (var conn = new SqlConnection(con.DatabaseConnection))
-                    {
-                        conn.Open();
-                        return conn.QueryFirstOrDefault<CourseVm>(courses_Query.GetCourseId, new { pID = id });
-                    }
+                    using var conn = new SqlConnection(con.DatabaseConnection);
+                    conn.Open();
+                    return conn.QueryFirstOrDefault<CoursesVm>(Courses_Query.GetCourseId, new { pID = id });
                 });
             }
             catch (Exception e)
@@ -55,7 +53,7 @@ namespace who.infrastructure.Services
             }
         }
 
-        public async Task<string> Create(CourseVm course)
+        public async Task<string> Create(Courses course)
         {
             try
             {
@@ -64,7 +62,7 @@ namespace who.infrastructure.Services
                     using (SqlConnection conn = new SqlConnection(con.DatabaseConnection))
                     {
                         conn.Open();
-                        return conn.ExecuteScalar<int>(courses_Query.Create, new
+                        return conn.ExecuteScalar<int>(Courses_Query.Create, new
                         {
                             pCourseCode = course.CourseCode,
                             pCourse = course.Course,
@@ -80,7 +78,7 @@ namespace who.infrastructure.Services
             }
         }
 
-        public async Task<string> Update(CourseVm course)
+        public async Task<string> Update(int id, Courses course)
         {
             try
             {
@@ -89,11 +87,12 @@ namespace who.infrastructure.Services
                     using (SqlConnection conn = new SqlConnection(con.DatabaseConnection))
                     {
                         conn.Open();
-                        return conn.ExecuteScalar<int>(courses_Query.Update, new
+                        return conn.ExecuteScalar<int>(Courses_Query.Update, new
                         {
                             pCourseCode = course.CourseCode,
                             pCourse = course.Course,
-                            pUserId = course.UserID
+                            pUserId = course.UserID,
+                            pId = id
                         }, commandTimeout: 0).ToString();
 
                     };
@@ -104,5 +103,28 @@ namespace who.infrastructure.Services
                 throw ex;
             }
         }
+
+
+        public async Task<string> Delete(int Id)
+        {
+            try
+            {
+                return await Task.Run(() =>
+                {
+                    using (SqlConnection conn = new SqlConnection(con.DatabaseConnection))
+                    {
+                        conn.Open();
+                        return conn.ExecuteScalar<int>(Courses_Query.Delete, new
+                        { pId = Id}, commandTimeout: 0).ToString();
+
+                    };
+                });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

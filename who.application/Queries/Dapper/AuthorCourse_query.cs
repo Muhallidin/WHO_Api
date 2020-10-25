@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace who.application.Queries.Dapper
+﻿namespace who.application.Queries.Dapper
 {
     public class AuthorCourse_query
     {

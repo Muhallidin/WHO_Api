@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using who.domain.Common;
+using who.domain.Entities;
 
 namespace who.application.ViewModel
 {
-    public class CourseEnrollVm: User
+    public class CourseEnrollVm : CourseEnroll
     {
-        public int Students_Id { get; set; }
-        public int Course_Id { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 using who.application.Common;
 using who.application.Queries.Dapper;
-using who.domain.Entities;
-using Dapper;
-using System.Linq;
 using who.application.ViewModel;
+using who.domain.Entities;
 
 namespace who.infrastructure.Services
 {
@@ -45,11 +45,9 @@ namespace who.infrastructure.Services
             {
                 return await Task.Run(() =>
                 {
-                    using (var conn = new SqlConnection(con.DatabaseConnection))
-                    {
-                        conn.Open();
-                        return conn.QueryFirstOrDefault<AuthorVm>(Author_query.GetauthorId, new { pID = id });
-                    }
+                    using var conn = new SqlConnection(con.DatabaseConnection);
+                    conn.Open();
+                    return conn.QueryFirstOrDefault<AuthorVm>(Author_query.GetauthorId, new { pID = id });
                 });
             }
             catch (Exception e)
@@ -58,7 +56,7 @@ namespace who.infrastructure.Services
             }
         }
 
-        public async Task<string> Create(AuthorVm course)
+        public async Task<string> Create(Author course)
         {
             try
             {
@@ -72,7 +70,7 @@ namespace who.infrastructure.Services
                             pFirstName = course.FirstName,
                             pMiddleName = course.MiddleName,
                             pLastName = course.LastName,
-                            pUser = course.UserID
+                            pUserId = course.UserID
                         }, commandTimeout: 0).ToString();
 
                     };
@@ -84,7 +82,7 @@ namespace who.infrastructure.Services
             }
         }
 
-        public async Task<string> Update(int Id, AuthorVm author)
+        public async Task<string> Update(int Id, Author author)
         {
             try
             {
@@ -109,6 +107,23 @@ namespace who.infrastructure.Services
             {
                 throw ex;
             }
+        }
+
+        public async Task<int> Delete(int Id)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(con.DatabaseConnection))
+                {
+                    conn.Open();
+                    return await conn.ExecuteScalarAsync<int>(Author_query.Delete, new { pId = Id }, commandTimeout: 20);
+                };
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
     }
 }

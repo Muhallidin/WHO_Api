@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace who.application.Queries.Dapper
+﻿namespace who.application.Queries.Dapper
 {
     public static class Author_query
     {
         #region select All author
         const string author = @"
-                                SELECT [ID] ,[FirstName] ,[MiddleName]
+                                SELECT [ID] as Id ,[FirstName] ,[MiddleName]
                                   ,[LastName] ,[CreatedBy] as UserId
                                 FROM [dbo].[Author] where IsActive = 1  
                              ";
@@ -40,20 +36,34 @@ namespace who.application.Queries.Dapper
                         ";
         public static string Create { get { return Createauthor; } }
         #endregion select All author
-        
+
         #region Update author  
         const string Updateauthor = @"
-                        UPDATE [dbo].[Author]
-                           SET [FirstName] = @pFirstName 
-                              ,[MiddleName] = @pMiddleName 
-                              ,[LastName] = @pLastName 
-                              ,[IsActive] = 1
-                              ,[ModifiedDate] = getdate()
-                              ,[ModifiedBy] = @UserId
-                         WHERE ID = @Id
+                            UPDATE [dbo].[Author]
+                               SET [FirstName] = @pFirstName 
+                                  ,[MiddleName] = @pMiddleName 
+                                  ,[LastName] = @pLastName 
+                                  ,[IsActive] = 1
+                                  ,[ModifiedDate] = getdate()
+                                  ,[ModifiedBy] = @UserId
+                             WHERE ID = @Id
+                            Select @@Identity as RowAffected
                         ";
         public static string Update { get { return Updateauthor; } }
 
         #endregion select All author
+
+        #region Delete author  
+        const string Deleteauthor = @"
+                        Delete from [dbo].[Author] WHERE ID = @Id
+                        Select @@Identity as RowAffected
+                        ";
+        public static string Delete { get { return Deleteauthor; } }
+
+        #endregion select All author
+
+
+
+
     }
 }

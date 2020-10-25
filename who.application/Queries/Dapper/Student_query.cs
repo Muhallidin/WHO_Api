@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace who.application.Queries.Dapper
+﻿namespace who.application.Queries.Dapper
 {
     public static class Student_query
     {
         #region select All student
         const string student = @"
-                                SELECT [ID] ,[FirstName] ,[MiddleName]
+                                SELECT [ID] as Id,[FirstName] ,[MiddleName]
                                   ,[LastName] ,[CreatedBy]  as UserId
                                 FROM [dbo].[Student] where IsActive = 1  
                              ";
@@ -53,10 +49,19 @@ namespace who.application.Queries.Dapper
                               ,[IsActive] = 1
                               ,[ModifiedDate] = getdate()
                               ,[ModifiedBy] = @UserId
-                         WHERE ID = @Id
+                         WHERE ID = @pId
                        ";
         public static string Update { get { return Updatestudent; } }
-
         #endregion select All student
+
+        #region Delete student  
+        const string Deletestudent = @"
+                         delete from [dbo].[Student]
+                         WHERE ID = @pId
+                         select @@ROWCOUNT as RowCount
+                       ";
+        public static string Delete { get { return Deletestudent; } }
+        #endregion Delete student
+
     }
 }
